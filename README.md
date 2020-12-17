@@ -1,4 +1,6 @@
 # PyMock
+![PyMock](https://github.com/diddi-/pymock/workflows/PyMock/badge.svg)
+
 PyMock is a set of tools to help with mocking in python.
 
 The typical way of mocking and controlling returned values in python is with `MagicMock` or simply `Mock` (https://docs.python.org/3/library/unittest.mock.html).

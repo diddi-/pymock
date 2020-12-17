@@ -9,7 +9,7 @@ setuptools.setup(
     url="https://github.com/diddi-/pymock",
     author="Diddi Oskarsson",
     author_email="diddi@diddi.se",
-    description="",
+    description="Mocking in Python made easy",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
