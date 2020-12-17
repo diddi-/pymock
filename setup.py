@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="PyMock",
+    name="python-mock",
     version="0.0.2",
     url="https://github.com/diddi-/pymock",
     author="Diddi Oskarsson",
