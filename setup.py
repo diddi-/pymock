@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PyMock",
-    version="0.0.1",
+    version="0.0.2",
     url="https://github.com/diddi-/pymock",
     author="Diddi Oskarsson",
     author_email="diddi@diddi.se",
