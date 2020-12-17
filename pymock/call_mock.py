@@ -1,14 +1,13 @@
-from typing import Tuple, Optional, Any
+from typing import Optional, Any
 
 from pymock.action.call_action import CallAction
 from pymock.action.raise_action import RaiseAction
 from pymock.action.return_action import ReturnAction
-from pymock.matcher.matcher import Matcher
 
 
 class CallMock:
-    def __init__(self, matchers: Tuple[Any]):
-        self.__matchers = matchers
+    def __init__(self, *arguments):
+        self.__arguments = arguments
         self.__action: Optional[CallAction] = None
 
     def returns(self, return_value: Any):
@@ -20,7 +19,7 @@ class CallMock:
     def execute(self):
         return self.__action.execute()
 
-    def has_matchers(self, matchers: Tuple[Matcher]):
-        if self.__matchers == matchers:
+    def has_matchers(self, *arguments):
+        if self.__arguments == arguments:
             return True
         return False
