@@ -2,7 +2,7 @@
 PyMock is a set of tools to help with mocking in python.
 
 The typical way of mocking and controlling returned values in python is with `MagicMock` or simply `Mock` (https://docs.python.org/3/library/unittest.mock.html).
-```
+```python
 def test_something():
     my_object = MagicMock()
     my_object.some_method.side_effect = [val1, val2, val3]
@@ -19,7 +19,7 @@ PyMock will look at the arguments passed in to the mocked method and return the 
 No extra code needed!
 
 # Examples
-```
+```python
 from unittest import TestCase
 from unittest.mock import MagicMock
 from pymock import PyMock, Is
