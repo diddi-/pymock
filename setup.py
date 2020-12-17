@@ -1,13 +1,16 @@
 import setuptools
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setuptools.setup(
     name="PyMock",
     version="0.0.1",
-    url="",
+    url="https://github.com/diddi-/pymock",
     author="Diddi Oskarsson",
     author_email="diddi@diddi.se",
     description="",
-    long_description="",
+    long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     include_package_data=True,
@@ -19,4 +22,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    python_requires='>=3.7',
 )
