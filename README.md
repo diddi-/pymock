@@ -8,12 +8,15 @@ def test_something():
     my_object.some_method.side_effect = [val1, val2, val3]
 ```
 A challenge often faced when working in a project is to know exactly how many times the mocked method is called
-and in *what order*. Since `side_effect` only take a list of values and return them one by one for each call to the method
-it quickly becomes a game of chance getting that list correct. Sometimes the input arguments to the method is what should
-determine which of the values to return.
+and in *what order*. For lists, `side_effect` return values one by one for each call to the method which
+quickly becomes a game of chance getting that list correct. Sometimes the input arguments to the method is what should
+determine which of the values to return which leaves you with the only option of creating another method or function
+that `side_effect` can call to retrieve the correct value.
 
-This is where `PyMock` comes in. Instead of defining a list of values, you configure a `PyMock` instance
-with a set of `calls` and pass it in as a `side_effect` to `MagicMock` or `Mock`.
+This is where `PyMock` comes in. Instead of fiddling with lists or writing separate functions,
+you configure a `PyMock` instance with a set of `calls` and pass it in as a `side_effect`.
+PyMock will look at the arguments passed in to the mocked method and return the correct value for you.
+No extra code needed!
 
 # Examples
 ```
