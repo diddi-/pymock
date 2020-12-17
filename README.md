@@ -18,6 +18,13 @@ you configure a `PyMock` instance with a set of `calls` and pass it in as a `sid
 PyMock will look at the arguments passed in to the mocked method and return the correct value for you.
 No extra code needed!
 
+
+# Install
+PyMock can be installed with pip
+```bash
+$ pip install python-mock
+```
+
 # Examples
 ```python
 from unittest import TestCase
