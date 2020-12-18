@@ -9,3 +9,6 @@ class ReturnAction(CallAction):
 
     def execute(self):
         return self.__return_value
+
+    def __repr__(self):
+        return f"<ReturnAction: {self.__return_value}>"

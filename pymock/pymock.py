@@ -1,24 +1,41 @@
-from __future__ import annotations
+from typing import Generic, TypeVar, Type, cast, Any
 
-from typing import List, Any
-from unittest.mock import MagicMock
+from pymock.mock_object import MockObject
+from pymock.action_selector import ActionSelector
 
-from pymock.call_mock import CallMock
+T = TypeVar("T")
 
 
-class PyMock:
+class PyMock(Generic[T]):
+    """ PyMock context manager
 
-    def __init__(self):
-        self.__call_mocks: List[CallMock] = []
+    When used as a context manager this will control the recording modes of a MockObject and return
+    it type-casted to the mocked type. This will make the MockObject _appear_ as if it was of the
+    same type as the original mocked type.
+    """
+    def __init__(self, cls: Type[T]):
+        self.__cls = cls
+        self.__object = MockObject()
 
-    def call(self, *matchers: Any) -> CallMock:
-        entry = CallMock(matchers)
-        self.__call_mocks.append(entry)
-        return entry
+    def __enter__(self):
+        self.__object._MockObject__PyMock__start_recording()
+        # This cast is purely to help (fool?) IDEs into resolving attributes of the original
+        # mocked type.
+        return cast(T, self.__object)
 
-    def __call__(self, *matchers, **kwargs):
-        for call in self.__call_mocks:
-            if call.has_matchers(matchers):
-                return call.execute()
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.__object._MockObject__PyMock__stop_recording()
+        pass
 
-        return MagicMock()
+    @staticmethod
+    def setup(call: Any):
+        """ Setup an attribute and its return value
+
+        Example:
+            with PyMock(Blog) as mock:
+                PyMock.setup(mock.get_post(123)).returns(Post())
+        """
+        return ActionSelector(call)
+
+    def __repr__(self):
+        return f"<PyMock: {self.__cls.__name__}>"
