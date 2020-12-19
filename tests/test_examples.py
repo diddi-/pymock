@@ -1,11 +1,11 @@
 from unittest import TestCase
-from unittest.mock import MagicMock
 
 from pymock import PyMock, Is
 
 
 class Post:
-    pass
+    def get_title(self) -> str:
+        pass
 
 
 class Blog:
@@ -43,15 +43,25 @@ class TestExamples(TestCase):
         with self.assertRaises(CustomException):
             mock.get_post(1)
 
-    def test_return_magicmock_when_not_matching_any_calls(self):
-        with PyMock(Blog) as mock:
-            pass  # Only using default return values
-
-        self.assertIsInstance(mock.get_post(123), MagicMock)
-
     def test_match_instance_type(self):
         post = Post()
         with PyMock(Blog) as mock:
             PyMock.setup(mock.get_post(Is.type(int))).returns(post)
 
         self.assertEqual(post, mock.get_post(12345))
+
+    def test_recursive_mocking(self):
+        with PyMock(Blog) as mock:
+            PyMock.setup(mock.get_post(Is.type(int)).get_title()).returns("PyMock is awesome")
+
+        self.assertEqual("PyMock is awesome", mock.get_post(123).get_title())
+
+    def test_mocking_with_fallback_value(self):
+        post = Post()
+        default = Post()
+        with PyMock(Blog) as mock:
+            PyMock.setup(mock.get_post(123)).returns(post)
+            PyMock.setup(mock.get_post(Is.type(int))).returns(default)
+
+        self.assertEqual(post, mock.get_post(123))
+        self.assertEqual(default, mock.get_post(456))

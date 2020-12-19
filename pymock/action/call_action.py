@@ -1,7 +1,7 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 
-class CallAction:
+class CallAction(ABC):
 
     @abstractmethod
     def execute(self):

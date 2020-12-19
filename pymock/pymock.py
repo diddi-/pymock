@@ -15,7 +15,7 @@ class PyMock(Generic[T]):
     """
     def __init__(self, cls: Type[T]):
         self.__cls = cls
-        self.__object = MockObject()
+        self.__object = MockObject(cls)
 
     def __enter__(self):
         self.__object._MockObject__PyMock__start_recording()
@@ -27,6 +27,9 @@ class PyMock(Generic[T]):
         self.__object._MockObject__PyMock__stop_recording()
         pass
 
+
+    # TODO: Could this be a decorator method to avoid the context manager?
+    # Would the decorator fire before the argument call?
     @staticmethod
     def setup(call: Any):
         """ Setup an attribute and its return value

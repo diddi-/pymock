@@ -11,7 +11,7 @@ class ActionSelector:
         self.__mock = mock
 
     def returns(self, return_value: Any):
-        self.__mock.action = ReturnAction(return_value)
+        self.__mock._MockObject__PyMock__action = ReturnAction(return_value)
 
     def raises(self, exception: Exception):
-        self.__mock.action = RaiseAction(exception)
+        self.__mock._MockObject__PyMock__action = RaiseAction(exception)

@@ -10,5 +10,9 @@ class TypeMatcher(Matcher):
             return True
         return False
 
+    def __hash__(self):
+        # TODO: I have literally no idea what I'm doing here
+        return hash("TypeMatcher")
+
     def __repr__(self):
         return f"<TypeMatcher: {self.__cls}>"
