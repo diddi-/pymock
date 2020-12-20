@@ -43,10 +43,11 @@ object of that type.
 ![Code completion in action](https://raw.githubusercontent.com/diddi-/pymock/master/docs/img/pymock-type-hinting.png)
 
 # Feedback
-PyMock is an early state of development and is likely to contain bugs. Quite possibly lots of them.
+PyMock is in an early state of development and is likely to contain bugs. Quite possibly lots of them.
 Don't let that hold you back from trying it out and [_let me know_](https://github.com/diddi-/pymock/issues)
 how it works for you! All kinds of feedback are valuable, good and bad
 * Bug reports
+* Feature requests  
 * Performance
 * Syntax
 * Overall experience
