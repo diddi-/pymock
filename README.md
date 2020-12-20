@@ -44,8 +44,8 @@ object of that type.
 
 # Feedback
 PyMock is an early state of development and is likely to contain bugs. Quite possibly lots of them.
-Don't let that hold you back from trying it out and [_let me know_](https://github.com/diddi-/pymock) how it works for you!
-All kinds of feedback are valuable, good and bad
+Don't let that hold you back from trying it out and [_let me know_](https://github.com/diddi-/pymock/issues)
+how it works for you! All kinds of feedback are valuable, good and bad
 * Bug reports
 * Performance
 * Syntax
