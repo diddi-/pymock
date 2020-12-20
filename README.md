@@ -39,11 +39,11 @@ The benefits here are many, for example
 * Because PyMock know exactly what the mocked type is, code completion work just as if it were an
 object of that type.
 
-![Code completion in action](/docs/img/pymmock-type-hinting.png?raw=true)
+![Code completion in action](https://raw.githubusercontent.com/diddi-/pymock/master/docs/img/pymock-type-hinting.png)
 
 # Feedback
 PyMock is an early state of development and is likely to contain bugs. Quite possibly lots of them.
-Don't let that hold you back from trying it out and [_let me know_](/issues) how it works for you!
+Don't let that hold you back from trying it out and [_let me know_](https://github.com/diddi-/pymock) how it works for you!
 All kinds of feedback are valuable, good and bad
 * Bug reports
 * Performance
