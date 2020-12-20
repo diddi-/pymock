@@ -10,5 +10,8 @@ class ReturnAction(CallAction):
     def execute(self):
         return self.__return_value
 
+    def __eq__(self, other):
+        return self.__return_value == other
+
     def __repr__(self):
         return f"<ReturnAction: {self.__return_value}>"

@@ -1,6 +1,7 @@
+from typing import Any
 from unittest import TestCase
 
-from pymock.mock_attribute import MockAttribute
+from pymock.action.return_action import ReturnAction
 from pymock.mock_object import MockObject
 
 
@@ -11,56 +12,50 @@ class Blog:
 
 class TestMockObject(TestCase):
 
-    def enable_recording(self, mock: MockObject):
-        mock._MockObject__PyMock__start_recording()
+    def set_value(self, obj: MockObject, value: Any):
+        obj._MockObject__PyMock__internal__value = ReturnAction(value)  # type: ignore
 
-    def disable_recording(self, mock: MockObject):
-        mock._MockObject__PyMock__disable_recording()
+    def test_MockObject_can_be_created(self):
+        self.assertIsInstance(MockObject(), MockObject)
 
-    def test_get_field_returns_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        self.assertIsInstance(mock.my_field, MockAttribute)
+    def test_calling_a_method_on_MockObject_returns_new_MockObject(self):
+        self.assertIsInstance(MockObject().method(), MockObject)
 
-    def test_get_method_returns_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        self.assertIsInstance(mock.get_post(), MockAttribute)
+    def test_getting_data_attribute_on_MockObject_returns_new_MockObject(self):
+        self.assertIsInstance(MockObject().data, MockObject)
 
-    def test_get_field_returns_saved_field_when_not_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.my_field
-        self.disable_recording(mock)
-        self.assertEqual(expected, mock.my_field)
+    def test_calling_same_method_twice_return_same_result(self):
+        mock = MockObject()
+        self.assertEqual(mock.method(), mock.method())
 
-    def test_get_method_returns_saved_method_when_not_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.get_post
-        self.disable_recording(mock)
-        self.assertEqual(expected, mock.get_post)
+    def test_calling_same_method_twice_with_arguments_return_same_result(self):
+        mock = MockObject()
+        self.assertEqual(mock.method(1), mock.method(1))
 
-    def test_get_same_field_twice_returns_same_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.my_field
-        self.assertEqual(expected, mock.my_field)
+    def test_calling_same_method_twice_with_different_arguments_return_different_result(self):
+        mock = MockObject()
+        self.assertNotEqual(mock.method(1), mock.method(2))
 
-    def test_get_same_method_twice_returns_same_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.get_post()
-        self.assertEqual(expected, mock.get_post())
+    def test_getting_same_data_attribute_twice_return_same_result(self):
+        mock = MockObject()
+        self.assertEqual(mock.data, mock.data)
 
-    def test_get_same_method_twice_with_arguments_returns_same_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.get_post(123)
-        self.assertEqual(expected, mock.get_post(123))
+    def test_MockObject_with_integer_value_is_equal_to_the_value_itself(self):
+        mock = MockObject()
+        self.set_value(mock, 2)
+        self.assertEqual(2, mock)
 
-    def test_get_methods_with_different_arguments_returns_different_MockAttribute_when_recording(self):
-        mock = MockObject(Blog)
-        expected = mock.get_post(123)
-        self.assertNotEqual(expected, mock.get_post("abc"))
+    def test_MockObject_with_string_value_is_equal_to_the_value_itself(self):
+        mock = MockObject()
+        self.set_value(mock, "PyMock")
+        self.assertEqual("PyMock", mock)
 
-    def test_get_methods_with_different_arguments_returns_saved_methods_when_not_recording(self):
-        mock = MockObject(Blog)
-        first_expected = mock.get_post(123)
-        second_expected = mock.get_post(456)
-        self.disable_recording(mock)
-        self.assertEqual(first_expected, mock.get_post(123))
-        self.assertEqual(second_expected, mock.get_post(456))
+    def test_setting_value_for_method_call_returns_same_value_on_successive_calls(self):
+        mock = MockObject()
+        self.set_value(mock.method(123), "PyMock")
+        self.assertEqual("PyMock", mock.method(123))
+
+    def test_data_attributes_can_be_set_with_standard_setattr(self):
+        mock = MockObject()
+        mock.data = 123
+        self.assertEqual(123, mock.data)
