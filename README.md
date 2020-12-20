@@ -8,6 +8,7 @@ PyMock can be installed with pip
 ```bash
 $ pip install python-mock
 ```
+**Note**: PyMock require Python version >= 3.7 to work properly.
 
 # How is it different?
 
