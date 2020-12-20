@@ -55,3 +55,11 @@ class TestExamples(TestCase):
         PyMock.setup(mock.get_post(123).get_title()).returns("PyMock is awesome")
 
         self.assertEqual("PyMock is awesome", mock.get_post(123).get_title())
+
+    def test_mock_function(self):
+        def my_function():
+            pass
+        mock = PyMock.create(my_function)
+        PyMock.setup(mock()).returns("my_function return value")
+
+        self.assertEqual("my_function return value", mock())
